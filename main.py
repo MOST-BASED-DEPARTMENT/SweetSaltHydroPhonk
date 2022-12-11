@@ -31,13 +31,8 @@ def bebra_delete(id):
             cursor.execute(f'delete from agricultural_machinery where id_agricultural_machinery = {id}')
 
 
-def bebra_put(id):
-    with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
-        with conn.cursor(as_dict=True) as cursor:
-            cursor.execute(f'delete from agricultural_machinery where id_agricultural_machinery = {id}')
-
-
 ####
+
 
 @app.get("/api/GetTasks")
 def get_tasks():
@@ -52,19 +47,25 @@ def get_tasks():
 def get_tasksId(id):
     with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
         with conn.cursor(as_dict=True) as cursor:
-            cursor.execute(f'select * from ttasks where id_task_type = {id} FOR JSON AUTO')
+            cursor.execute(f'select * from ttasks where id_ttask = {id} FOR JSON AUTO')
             for row in cursor:
                 return row
 
 
 @app.get("/api/DeleteTasksById")
 def post_deleteById(id):
-    return 0
+    with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
+        with conn.cursor(as_dict=True) as cursor:
+            return cursor.execute(f'delete from ttasks where id_ttask_type = {id} FOR JSON AUTO')
+
+
 
 
 @app.post("/api/DeleteTasks")
 def post_delete():
-    return 0
+    with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
+        with conn.cursor(as_dict=True) as cursor:
+            return cursor.execute(f'delete from ttasks FOR JSON AUTO')
 
 
 @app.get("/api/GetChemicalsById")
@@ -76,7 +77,7 @@ def get_chemicalsById(id):
                 return row
 
 
-@app.get("/api/GetChemicalsById")
+@app.get("/api/GetChemicals")
 def get_chemicals():
     with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
         with conn.cursor(as_dict=True) as cursor:
