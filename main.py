@@ -89,10 +89,19 @@ def get_chemicals():
 def procedura():
     with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
         with conn.cursor(as_dict=True) as cursor:
-             cursor.callproc('Get_tTask_Card')
-                from row in cursor:
-                    return row
+            cursor.callproc('Get_tTask_Card')
+            for row in cursor:
+                return row
+
+@app.get("/api/proceduraNumber")
+def proceduraInt32(num):
+    with pymssql.connect("46.39.232.190", "TestUser", "vag!nA228##", "Agronomic_App_TestUser") as conn:
+        with conn.cursor(as_dict=True) as cursor:
+            cursor.callproc('Get_tTask_Card')
+            for row in cursor:
+                return row
+
 
 
 if __name__ == '__main__':
-    bebra(1)
+    print(procedura())
